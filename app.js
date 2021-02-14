@@ -3,18 +3,18 @@ const fs = require('fs');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
+const generatePage = require('./generatePage.js')
 
 let teamArr = [];
 
 // Function to get team name
 function teamName() {
-  inquirer
-    .prompt({
+  inquirer.prompt({
       type: 'input',
       name: 'teamname',
       message: 'What is your team name?',
-      validate: nameInput => {
-        if (nameInput) {
+      validate: answer => {
+        if (answer) {
           return true;
         } else {
           console.log('Please enter your team name!');
@@ -24,22 +24,19 @@ function teamName() {
     }).then(data => {
       const teamName = data.teamname;
       teamArr.push(teamName);
-      console.log(teamArr)
       managerDetails()
     })
 }
 
-
 // Function to get manager info
 function managerDetails() {
-  inquirer
-    .prompt([
+  inquirer.prompt([
       {
         type: 'input',
         name: 'name',
         message: 'What is your managers name?',
-        validate: nameInput => {
-          if (nameInput) {
+        validate: answer => {
+          if (answer) {
             return true;
           } else {
             console.log('Please enter your managers name!');
@@ -51,12 +48,12 @@ function managerDetails() {
         type: 'number',
         name: 'id',
         message: 'What is your managers ID number?',
-        validate: idInput => {
-          if (idInput === NaN) {
+        validate: answer => {
+          if (answer) {
+            return true;
+          } else {
             console.log('Please enter your managers ID number!');
             return false;
-          } else {
-            return true;
           }
         }
       },
@@ -64,8 +61,8 @@ function managerDetails() {
         type: 'input',
         name: 'email',
         message: 'What is your managers email?',
-        validate: emailInput => {
-          if (emailInput) {
+        validate: answer => {
+          if (answer) {
             return true;
           } else {
             console.log('Please enter your managers email!');
@@ -77,8 +74,8 @@ function managerDetails() {
         type: 'number',
         name: 'officeNumber',
         message: 'What is your managers office number?',
-        validate: officeNumberInput => {
-          if (officeNumberInput) {
+        validate: answer => {
+          if (answer) {
             return true;
           } else {
             console.log('Please enter your managers office number!');
@@ -93,15 +90,13 @@ function managerDetails() {
       const officeNumber = data.officeNumber;
       const manager = new Manager(name, id, email, officeNumber)
       teamArr.push(manager);
-      console.log(teamArr)
       teamMembers()
     })
 }
 
 // Function to add team members
 function teamMembers() {
-  inquirer
-    .prompt({
+  inquirer.prompt({
       type: 'list',
       name: 'member',
       message: 'Would you like to add a new team member?',
@@ -112,15 +107,14 @@ function teamMembers() {
       } else if (data.member === "Yes, I would like to add an intern.") {
         addIntern()
       } else {
-        generatePage()
+        createFile()
       }
     })
 }
 
 // Function to get engineer details
 function addEngineer() {
-  inquirer
-  .prompt([
+  inquirer.prompt([
     {
       type: 'input',
       name: 'name',
@@ -139,11 +133,11 @@ function addEngineer() {
       name: 'id',
       message: 'What is your engineers ID number?',
       validate: answer => {
-        if (answer === NaN) {
+        if (answer) {
+          return true;
+        } else {
           console.log('Please enter your engineers ID number!');
           return false;
-        } else {
-          return true;
         }
       }
     },
@@ -207,11 +201,11 @@ function addIntern() {
       name: 'id',
       message: 'What is your interns ID number?',
       validate: answer => {
-        if (answer === NaN) {
+        if (answer) {
+          return true;
+        } else {
           console.log('Please enter your interns ID number!');
           return false;
-        } else {
-          return true;
         }
       }
     },
@@ -248,9 +242,20 @@ function addIntern() {
     const school = data.school;
     const intern = new Intern(name, id, email, school)
     teamArr.push(intern);
-    console.log(teamArr)
     teamMembers()
   })
 }
+
+function createFile() {
+  // Function to write HTML file
+  const filename = teamArr[0].toLowerCase() + '.html';
+  fs.writeFile(filename, generatePage(teamArr), (err) => {
+  
+    if (err) {
+      return console.log(err)
+    }
+    console.log("Success!")
+  });
+};
 
 teamName();
