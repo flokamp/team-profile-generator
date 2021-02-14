@@ -257,38 +257,51 @@ function createFile() {
 
 function displayOfficeNumber(number) {
   return `
-  <p>${number}</p>
+  <p id="number">${number}</p>
   `
 }
 
 function displayGithub(github) {
   return `
-  <p>${github}</p>
+  <p id="github">${github}</p>
   `
 }
 
 function displaySchool(school) {
   return `
-  <p>${school}</p>
+  <p id="school">${school}</p>
   `
 }
 function employeeCard(team) {
   return `<div class="employee-card">
-  <h1 class="name">${team.name}</h1>
-  <p class="title">${team.role}</p>
-  <p>${team.id}</p>
-  <p>${team.email}</p>
-  <p>${team.officeNumber ? displayOfficeNumber(team.officeNumber) : ''}</p>
-  <p>${team.school ? displaySchool(team.school) : ''}</p>
-  <p>${team.github ? displayGithub(team.github) : ''}</p>
+  <h2 class="name">${team.name}</h2>
+  <p id="role">${team.role}</p>
+  <p id="id">${team.id}</p>
+  <p id="email">${team.email}</p>
+  ${team.officeNumber ? displayOfficeNumber(team.officeNumber) : ''}
+  ${team.school ? displaySchool(team.school) : ''}
+  ${team.github ? displayGithub(team.github) : ''}
   </div>
   `
 }
 
 function generatePage(teamArr) {
-  return `<h1 class="title">Test<h1>
+  return `<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Test</title>
+  </head>
+  <body>
+  <header>
+    <h1>test</h1>
+  </header>
+  <div class="container">
   ${teamArr.map(employeeCard).join('')}
-  <footer></footer>
+  <div>
+  </body>
   `
 }
 
