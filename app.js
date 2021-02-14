@@ -3,7 +3,6 @@ const fs = require('fs');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
-const generatePage = require('./generatePage.js')
 
 let teamArr = [];
 
@@ -22,8 +21,7 @@ function teamName() {
         }
       }
     }).then(data => {
-      const teamName = data.teamname;
-      teamArr.push(teamName);
+      let teamProfileName = data.teamname;
       managerDetails()
     })
 }
@@ -248,14 +246,35 @@ function addIntern() {
 
 function createFile() {
   // Function to write HTML file
-  const filename = teamArr[0].toLowerCase() + '.html';
+  const filename = 'index.html';
   fs.writeFile(filename, generatePage(teamArr), (err) => {
-  
     if (err) {
       return console.log(err)
     }
     console.log("Success!")
+
+console.log(teamProfileName)
   });
 };
+
+function generatePage(teamArr) {
+  return `<h1 class="title">Test<h1>
+  ${teamArr.map(function(team) {
+    return `
+    <div class="member-card">
+    <ul>
+    <li>${team.role}</li>
+    <li>${team.id}</li>
+    <li>${team.email}</li>
+    <li>${team.officeNumber ? team.officeNumber : ''}</li>
+    <li>${team.school ? team.school : ''}</li>
+    <li>${team.github ? team.github : ''}</li>
+    </ul>
+    </div>
+    `
+  }).join('')}
+  <footer></footer>
+  `
+}
 
 teamName();
