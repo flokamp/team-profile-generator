@@ -252,27 +252,42 @@ function createFile() {
       return console.log(err)
     }
     console.log("Success!")
-
-console.log(teamProfileName)
   });
 };
 
+function displayOfficeNumber(number) {
+  return `
+  <p>${number}</p>
+  `
+}
+
+function displayGithub(github) {
+  return `
+  <p>${github}</p>
+  `
+}
+
+function displaySchool(school) {
+  return `
+  <p>${school}</p>
+  `
+}
+function employeeCard(team) {
+  return `<div class="employee-card">
+  <h1 class="name">${team.name}</h1>
+  <p class="title">${team.role}</p>
+  <p>${team.id}</p>
+  <p>${team.email}</p>
+  <p>${team.officeNumber ? displayOfficeNumber(team.officeNumber) : ''}</p>
+  <p>${team.school ? displaySchool(team.school) : ''}</p>
+  <p>${team.github ? displayGithub(team.github) : ''}</p>
+  </div>
+  `
+}
+
 function generatePage(teamArr) {
   return `<h1 class="title">Test<h1>
-  ${teamArr.map(function(team) {
-    return `
-    <div class="member-card">
-    <ul>
-    <li>${team.role}</li>
-    <li>${team.id}</li>
-    <li>${team.email}</li>
-    <li>${team.officeNumber ? team.officeNumber : ''}</li>
-    <li>${team.school ? team.school : ''}</li>
-    <li>${team.github ? team.github : ''}</li>
-    </ul>
-    </div>
-    `
-  }).join('')}
+  ${teamArr.map(employeeCard).join('')}
   <footer></footer>
   `
 }
