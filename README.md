@@ -5,7 +5,8 @@
 ## Description
 
 Team Profile Generator is a CLI application that builds a custom team profile page. The application collects basic information about each member of a team and then generates an HTML page that organizes and displays the information.
-[Example page](https://flokamp.github.io/team-profile-generator/)
+
+[View example page](https://flokamp.github.io/team-profile-generator/)
 
 ![Screenshot](/assets/images/app.png)
 
