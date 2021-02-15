@@ -32,6 +32,9 @@ To use this appliacation,
 Feel free to send pull requests and raise issues.
 
 ## Tests
+To test this application,
+1. Enter `npm run test` from the command line
+2. You can test individual classes by adding `Employee` `Manager` `Engineer` or `Intern` after `npm run test`
 
 ## Questions
 My GitHub: [flokamp](https://github.com/flokamp)
