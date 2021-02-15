@@ -1,12 +1,19 @@
 const Manager = require('../lib/Manager');
 
-test('creates a manager object', () => {
-  const manager = new Manager('Manager Name', 100, 'manager@gmail.com', "Manager", 2149497269);
+test('gets manager office number', () => {
+  const officeNumber = 12git34567890;
+  const manager = new Manager("manager name", 1, "manager@gmail.com", officeNumber);
+  expect(manager.officeNumber).toBe(officeNumber);
+})
 
-  expect(manager.name).toEqual(expect.any(String));
-  expect(manager.id).toEqual(expect.any(Number));
-  expect(manager.email).toEqual(expect.any(String));
-  expect(manager.officeNumber).toEqual(expect.any(Number));
-  console.log(manager)
+test('gets manager officeNumber from getOfficeNumber() method', () => {
+  const officeNumber = 1234567890;
+  const manager = new Manager("manager name", 1, "manager@gmail.com", officeNumber);
+  expect(manager.getOfficeNumber()).toBe(officeNumber);
+})
 
-});
+test('gets manager role from getRole() method', () => {
+  const role = "&#9749; Manager";
+  const manager = new Manager("manager name", 1, "manager@gmail.com", 1234567890);
+  expect(manager.getRole()).toBe(role);
+})
