@@ -78,11 +78,11 @@ function teamMembers() {
       type: 'list',
       name: 'member',
       message: 'Would you like to add a new team member?',
-      choices: ["Yes I would like to add an engineer.", "Yes, I would like to add an intern.", "No, I've added everyone on my team."]
+      choices: ["Yes, add an engineer.", "Yes, add an intern.", "No, I've added everyone on my team."]
     }).then(data => {
-      if (data.member === "Yes I would like to add an engineer.") {
+      if (data.member === "Yes, add an engineer.") {
         addEngineer()
-      } else if (data.member === "Yes, I would like to add an intern.") {
+      } else if (data.member === "Yes, add an intern.") {
         addIntern()
       } else {
         createFile()

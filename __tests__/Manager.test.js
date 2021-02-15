@@ -1,7 +1,7 @@
 const Manager = require('../lib/Manager');
 
 test('gets manager office number', () => {
-  const officeNumber = 12git34567890;
+  const officeNumber = 1234567890;
   const manager = new Manager("manager name", 1, "manager@gmail.com", officeNumber);
   expect(manager.officeNumber).toBe(officeNumber);
 })
