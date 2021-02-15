@@ -29,9 +29,11 @@ To use this appliacation,
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Contributing
+Feel free to send pull requests and raise issues.
 
 ## Tests
 
 ## Questions
 My GitHub: [flokamp](https://github.com/flokamp)
+
 If you have additional questions, email me! kampflo2@gmail.com
