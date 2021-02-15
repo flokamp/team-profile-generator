@@ -238,41 +238,40 @@ function createFile() {
 // Function to conditionally display office number
 function displayOfficeNumber(number) {
   return `
-  <p id="number"><span class="label">Phone:</span> ${number}</p>
+  <li class="list-group-item p-4"><span class="text-muted">Number:</span> ${number}</li>
   `
 }
 
 // Function to conditionally display github link
 function displayGithub(github) {
   return `
-  <p id="github"><span class="label">Github: </span>
-  <a href="https://github.com/${github}">${github}</a>
+  <li class="list-group-item p-4"><span class="text-muted text-decoration-none">Github: </span><a href="https://github.com/${github}">${github}</a></li>
   `
 }
 
 // Function to conditionally display school
 function displaySchool(school) {
   return `
-  <p id="school"><span class="label">School:</span> ${school}</p>
+  <li class="list-group-item p-4"><span class="text-muted">School: </span>${school}</li>
   `
 }
 
 // Function to generate card for each team member
 function employeeCard(team) {
-  return `<div class="employee-card">
-  <div class="card-header">
-  <h2 class="name">${team.name}</h2>
-  <p id="role">${team.role}</p>
-  </div>
-  <hr>
-  <div class="card-details">
-  <p id="id"><span class="label">ID:</span> ${team.id}</p>
-  <p id="email"><span class="label">Email: </span><a href="mailto:{team.email}">${team.email}</a>
-  </p>
-  ${team.officeNumber ? displayOfficeNumber(team.officeNumber) : ''}
-  ${team.school ? displaySchool(team.school) : ''}
-  ${team.github ? displayGithub(team.github) : ''}
-  </div>
+  return `<div class="col">
+    <div class="card m-4 shadow p-3 bg-body rounded">
+      <div class="card-body">
+        <h1 class="card-title">${team.name}</h1>
+        <h5 class="fw-light">${team.role}</h5>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item p-4"><span class="text-muted">ID:</span>  ${team.id}</li>
+        <li class="list-group-item p-4"><span class="text-muted">Email: </span><a class="text-decoration-none" href="mailto:${team.email}">${team.email}</a></li>
+        ${team.officeNumber ? displayOfficeNumber(team.officeNumber) : ''}
+        ${team.school ? displaySchool(team.school) : ''}
+        ${team.github ? displayGithub(team.github) : ''}
+      </ul>
+    </div>
   </div>
   `
 }
@@ -284,18 +283,20 @@ function generatePage(teamArr) {
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <title>Team Profile</title>
   </head>
   <body>
-  <header>
-    <h1>Team Profile</h1>
-  </header>
-  <div class="container">
-  ${teamArr.map(employeeCard).join('')}
-  <div>
+    <header>
+      <div class="navbar text-white sticky-top navbar-dark bg-dark p-4 mb-4">
+        <h1 class="display-5 m-auto">Team Profile<h1>
+      </div>
+    </header>
+    <div class="container-md">
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        ${teamArr.map(employeeCard).join('')}
+      </div>
+    </div>
   </body>
   `
 }
