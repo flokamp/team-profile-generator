@@ -6,26 +6,6 @@ const Intern = require('./lib/Intern');
 
 let teamArr = [];
 
-// Function to get team name
-function teamName() {
-  inquirer.prompt({
-      type: 'input',
-      name: 'teamname',
-      message: 'What is your team name?',
-      validate: answer => {
-        if (answer) {
-          return true;
-        } else {
-          console.log('Please enter your team name!');
-          return false;
-        }
-      }
-    }).then(data => {
-      let teamProfileName = data.teamname;
-      managerDetails()
-    })
-}
-
 // Function to get manager info
 function managerDetails() {
   inquirer.prompt([
@@ -255,48 +235,63 @@ function createFile() {
   });
 };
 
+// Function to conditionally display office number
 function displayOfficeNumber(number) {
   return `
-  <p id="number">${number}</p>
+  <p id="number"><span class="label">Phone:</span> ${number}</p>
   `
 }
 
+// Function to conditionally display github link
 function displayGithub(github) {
   return `
-  <p id="github">${github}</p>
+  <p id="github"><span class="label">Github: </span>
+  <a href="https://github.com/${github}">${github}</a>
   `
 }
 
+// Function to conditionally display school
 function displaySchool(school) {
   return `
-  <p id="school">${school}</p>
+  <p id="school"><span class="label">School:</span> ${school}</p>
   `
 }
+
+// Function to generate card for each team member
 function employeeCard(team) {
   return `<div class="employee-card">
+  <div class="card-header">
   <h2 class="name">${team.name}</h2>
   <p id="role">${team.role}</p>
-  <p id="id">${team.id}</p>
-  <p id="email">${team.email}</p>
+  </div>
+  <hr>
+  <div class="card-details">
+  <p id="id"><span class="label">ID:</span> ${team.id}</p>
+  <p id="email"><span class="label">Email: </span><a href="mailto:{team.email}">${team.email}</a>
+  </p>
   ${team.officeNumber ? displayOfficeNumber(team.officeNumber) : ''}
   ${team.school ? displaySchool(team.school) : ''}
   ${team.github ? displayGithub(team.github) : ''}
   </div>
+  </div>
   `
 }
 
+// Function to generate html page
 function generatePage(teamArr) {
   return `<!DOCTYPE html>
   <html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <title>Test</title>
+    <title>Team Profile</title>
   </head>
   <body>
   <header>
-    <h1>test</h1>
+    <h1>Team Profile</h1>
   </header>
   <div class="container">
   ${teamArr.map(employeeCard).join('')}
@@ -305,4 +300,4 @@ function generatePage(teamArr) {
   `
 }
 
-teamName();
+managerDetails()

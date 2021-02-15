@@ -13,7 +13,7 @@ test('gets manager officeNumber from getOfficeNumber() method', () => {
 })
 
 test('gets manager role from getRole() method', () => {
-  const role = "Manager";
+  const role = "&#9749; Manager";
   const manager = new Manager("manager name", 1, "manager@gmail.com", 1234567890);
   expect(manager.getRole()).toBe(role);
 })
